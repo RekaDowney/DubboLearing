@@ -1,5 +1,6 @@
 package me.junbin.dubbo;
 
+import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -10,8 +11,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @createDate : 2018/9/12 23:43
  * @description :
  */
-// 在 application.yml 配置文件中添加了 dubbo.scan.base-packages 属性，这里可以不使用 EnableDubbo 注解
-// @EnableDubbo
+@EnableDubbo // 启动 Dubbo 的注解支持
 @SpringBootApplication
 public class ProviderApplication {
 
