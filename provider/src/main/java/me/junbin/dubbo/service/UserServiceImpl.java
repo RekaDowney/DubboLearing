@@ -2,6 +2,8 @@ package me.junbin.dubbo.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import me.junbin.dubbo.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     private static final ConcurrentMap<Long, User> DB = new ConcurrentHashMap<>(32);
     private static final AtomicLong idGen = new AtomicLong(0);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     static {
         long id = idGen.incrementAndGet();
@@ -51,28 +54,33 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         long id = idGen.incrementAndGet();
         user.setId(id);
+        LOGGER.info("新增客户：{}", user);
         DB.put(id, user);
         return user;
     }
 
     @Override
     public User delete(Long id) {
+        LOGGER.warn("删除客户：{}", DB.get(id));
         return DB.remove(id);
     }
 
     @Override
     public User update(User user) {
+        LOGGER.info("更新客户：{} ==> {}", DB.get(user.getId()), user);
         DB.put(user.getId(), user);
         return user;
     }
 
     @Override
     public User findById(Long id) {
+        LOGGER.info("查找客户：{}", id);
         return DB.get(id);
     }
 
     @Override
     public List<User> findAll() {
+        LOGGER.info("查询所有客户");
         return new ArrayList<>(DB.values());
     }
 
