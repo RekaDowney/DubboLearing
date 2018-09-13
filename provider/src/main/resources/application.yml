@@ -1,0 +1,30 @@
+## Spring 配置
+spring:
+  application:
+    name: Dubbo-Provider
+
+## Dubbo 配置
+dubbo:
+  # 配置 ServiceConfig 的扫描路径，即 Dubbo 扫描 Service 和 Reference 组件的包路径
+  scan:
+    base-packages: me.junbin.dubbo.service
+  ## 配置 ApplicationConfig，Dubbo 服务信息
+  application:
+    id: ProviderId
+    name: Provider
+  ## 配置 RegistryConfig，注册中心地址
+  registry:
+    id: zk01
+    address: zookeeper:bd.me:2181
+  ## 配置 ProtocolConfig，通信协议
+  protocol:
+    # 通信协议采用 dubbo 协议
+    name: dubbo
+    # 通信端口为 2181
+    port: 2181
+
+## 版本配置
+user:
+  service:
+    version: 1.0.0
+
