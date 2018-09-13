@@ -108,7 +108,7 @@
 
 　　要运行`dubbo-admin`，请先**确保`zookeeper`已经启动**。
 
-　　接着在该目录下通过`nohup java -jar dubbo-admin.jar &>>dubboadmin.log &`命令后台启动`dubbo-admin`。使用`tail -f dubboadmin.log`查看启动情况。
+　　接着在该目录下通过`nohup java -jar dubbo-admin.jar &>dubboadmin.log &`命令后台启动`dubbo-admin`。使用`tail -f dubboadmin.log`查看启动情况。
 
 　　启动成功后可以看到如下日志：
 

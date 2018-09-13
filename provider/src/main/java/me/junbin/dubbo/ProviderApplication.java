@@ -16,7 +16,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class ProviderApplication {
 
     public static void main(String[] args) throws Exception {
-        new SpringApplicationBuilder().web(WebApplicationType.NONE).run(args);
+        new SpringApplicationBuilder(ProviderApplication.class)
+                .web(WebApplicationType.NONE).run(args);
     }
 
 }

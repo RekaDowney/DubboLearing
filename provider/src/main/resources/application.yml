@@ -10,18 +10,26 @@ dubbo:
     base-packages: me.junbin.dubbo.service
   ## 配置 ApplicationConfig，Dubbo 服务信息
   application:
-    id: ProviderId
     name: Provider
+    logger: slf4j
   ## 配置 RegistryConfig，注册中心地址
   registry:
-    id: zk01
-    address: zookeeper:bd.me:2181
+#    protocol: zookeeper
+    address: zookeeper://tx.me:2181
+    # 向注册中心注册自身（默认为true）
+    register: true
+    # 不向注册中心订阅（默认为true）
+    subscribe: false
+    # 注册中心不存在时，是否抛出异常
+    check: true
+    # 采用 curator ZK 客户端
+    client: curator
   ## 配置 ProtocolConfig，通信协议
   protocol:
     # 通信协议采用 dubbo 协议
     name: dubbo
-    # 通信端口为 2181
-    port: 2181
+    # 通信端口为 7658
+    port: 7658
 
 ## 版本配置
 user:
