@@ -11,8 +11,7 @@
 
     <artifactId>provider</artifactId>
 
-    <name>provider</name>
-    <url>服务提供方</url>
+    <name>provider 服务提供方</name>
 
     <properties>
     </properties>

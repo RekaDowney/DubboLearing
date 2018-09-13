@@ -9,6 +9,7 @@
     <modules>
         <module>provider</module>
         <module>api</module>
+        <module>consumer</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @description :
  */
 @Component
-@Service(version = "${user.service.version}")
+@Service(version = "${user.service.v1_0_0}")
 public class UserServiceImpl implements UserService {
 
     private static final ConcurrentMap<Long, User> DB = new ConcurrentHashMap<>(32);

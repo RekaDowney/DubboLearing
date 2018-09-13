@@ -34,5 +34,5 @@ dubbo:
 ## 版本配置
 user:
   service:
-    version: 1.0.0
+    v1_0_0: 1.0.0
 
