@@ -1,6 +1,6 @@
-## Dubbo 基础教程
+# Dubbo 基础教程
 
-### 安装并启动`ZooKeeper`
+## 安装并启动`ZooKeeper`
 
 ```bash
 
@@ -34,6 +34,7 @@
     ./bin/zkServer.sh start
 
 ```
+
 
 ## 安装并启动 Dubbo-Admin 管理控制台
 
@@ -106,6 +107,8 @@
         
 ```
 
+### 启动 dubbo-admin
+
 　　要运行`dubbo-admin`，请先**确保`zookeeper`已经启动**。
 
 　　接着在该目录下通过`nohup java -jar dubbo-admin.jar &>dubboadmin.log &`命令后台启动`dubbo-admin`。使用`tail -f dubboadmin.log`查看启动情况。
@@ -133,4 +136,80 @@
 ![01 请求登陆Dubbo.jpg](https://i.loli.net/2018/09/12/5b992d8f18de7.jpg)
 
 ![02 登陆Dubbo首页.jpg](https://i.loli.net/2018/09/12/5b992d8fbd58f.jpg)
+
+
+## API 模块
+
+　　`API`模块主要用来管理服务模型、服务接口、服务异常等一些通用化的类和接口。如果有必要，甚至可以将某些配置文件也交由`API`模块进行管理。
+
+　　这里以常见的账户体系服务为例来展示`API`模块：
+
+_用户模型_
+
+```java
+
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    @AllArgsConstructor
+    @Accessors(chain = true)
+    public class User implements Serializable {
+    
+        private static final long serialVersionUID = 1L;
+        private Long id;
+        private String username;
+        private String password;
+        private LocalDate birthday;
+        private boolean isMale;
+    
+    }
+
+```
+
+_用户服务_
+
+```java
+
+    public interface UserService {
+    
+        User save(User user);
+    
+        User delete(Long id);
+    
+        User update(User user);
+    
+        User findById(Long id);
+    
+        List<User> findAll();
+    
+    }
+
+
+```
+
+　　目前`API`模块就只需要这些内容。其中*用户服务*为接口，后续由服务提供方提供相关实现。
+
+
+## 服务提供方
+
+　　服务提供方需要引入`API`模块
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
