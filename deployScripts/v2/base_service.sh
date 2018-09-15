@@ -13,8 +13,6 @@
 
 ## 最后执行 main $@ 方法
 
-readonly serviceName=$(basename "${jarAbsolutePath}")
-
 function exist() {
     local allps=$(ps auxw | grep ${jarAbsolutePath} | grep -v grep | wc -l)
     if [[ ${allps} -eq 1 ]]; then
@@ -41,7 +39,7 @@ function __start() {
         nohup java -jar ${jarAbsolutePath} > ${loggingPath} 2>&1 &
     fi
     sleep 1s
-    if exist "${jarAbsolutePath}"; then
+    if exist; then
         echo -en "${green}${serviceName}服务启动成功...${endColor}\n"
         return 0
     else
@@ -51,8 +49,7 @@ function __start() {
 }
 
 function __stop() {
-    local jarAbsolutePath="$1"
-    if exist "${jarAbsolutePath}"; then
+    if exist; then
         local pid=$(ps auxw | grep ${jarAbsolutePath} | grep -v grep | awk '{print $2}')
         kill -SIGKILL ${pid}
         #        kill -SIGTERM ${pid}
@@ -72,16 +69,16 @@ function __stop() {
 }
 
 function __restart() {
-    if ! exist "${jarAbsolutePath}"; then
+    if ! exist; then
         echo -en "${red}${serviceName}服务尚未启动，无法重启${endColor}\n"
         return 10
     fi
-    __stop "${jarAbsolutePath}" > /dev/null 2>&1
+    __stop > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
         echo -en "${red}${serviceName}重启时服务关闭失败...${endColor}\n"
         return 11
     fi
-    __start $@ &> /dev/null
+    __start &> /dev/null
     if [[ $? -ne 0 ]]; then
         echo -en "${red}${serviceName}重启时服务启动失败...${endColor}\n"
         return 12
@@ -91,11 +88,11 @@ function __restart() {
 }
 
 function __run() {
-    if exist "${jarAbsolutePath}"; then
+    if exist; then
         echo -en "${yellow}${serviceName}服务正在运行...${endColor}\n"
         return 3
     else
-        __start $@ &> /dev/null
+        __start &> /dev/null
         if [[ $? -ne 0 ]]; then
             echo -en "${red}${serviceName}服务启动失败...${endColor}\n"
             return 0

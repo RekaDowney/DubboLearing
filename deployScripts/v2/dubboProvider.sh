@@ -13,7 +13,7 @@ readonly loggingPath="/opt/app/dubbo/provider.log"
 readonly configLocation='/opt/app/dubbo/provider.yml'
 readonly scriptName="$(pwd)/$(basename $0)"
 
-source base_service.sh
+source ./base_service.sh
 
 main $@
 exit $?

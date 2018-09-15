@@ -17,6 +17,7 @@ public class ProviderApplication {
 
     public static void main(String[] args) throws Exception {
         new SpringApplicationBuilder(ProviderApplication.class)
+                // 表明当前不是 Web 环境，不需要启动 Spring 的 Web 功能，但不能停止进程以便提供服务
                 .web(WebApplicationType.NONE).run(args);
     }
 

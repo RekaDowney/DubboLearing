@@ -6,11 +6,16 @@ spring:
 ## Dubbo 配置
 dubbo:
   # 配置 ServiceConfig 的扫描路径，即 Dubbo 扫描 Service 和 Reference 组件的包路径
+  # 可以通过 @EnableDubbo 注解的配置项完成
   scan:
     base-packages: me.junbin.dubbo.service
   ## 配置 ApplicationConfig，Dubbo 服务信息
   application:
+    # 应用服务ID，通常唯一，用来区分相同应用中的不同服务
+    # id: xxx
+    ## 配置 Dubbo 应用名称，多个提供相同服务的微服务采用相同的应用名称
     name: Provider
+    ## 配置 Dubbo 使用的日志框架，默认为 slf4j
     logger: slf4j
   ## 配置 RegistryConfig，注册中心地址
   registry:
@@ -31,7 +36,7 @@ dubbo:
     # 通信端口为 7658
     port: 7658
 
-## 版本配置
+## 版本配置，用来统一管理服务版本并增强灰度发布
 user:
   service:
     v1_0_0: 1.0.0

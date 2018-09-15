@@ -1,19 +1,17 @@
+server:
+  port: 7653
 
 spring:
   application:
     name: Consumer
+
 dubbo:
   application:
     name: Consumer
   registry:
     address: zookeeper://tx.me:2181
     client: curator
-  protocol:
-    # 通信协议采用 dubbo 协议
-    name: dubbo
-    # 通信端口为 7658
-    port: 7658
-
+#    register: false
 
 ## 版本配置
 user:

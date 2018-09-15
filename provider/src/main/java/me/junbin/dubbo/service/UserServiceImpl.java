@@ -19,8 +19,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * @createDate : 2018/9/12 23:45
  * @description :
  */
+// Dubbo 依赖 Spring，必须将服务交由 Spring 容器托管，这样 Dubbo 才能通过 Spring 容器来管理（增强）服务
 @Component
-@Service(version = "${user.service.v1_0_0}")
+@Service(version = "${user.service.v1_0_0}") // 该注解表明当前 Bean 是一个服务提供方
 public class UserServiceImpl implements UserService {
 
     private static final ConcurrentMap<Long, User> DB = new ConcurrentHashMap<>(32);
