@@ -624,3 +624,80 @@ _解决方案_
 　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)
 
 
+## 安装并启动 Dubbo 监控中心
+
+### 打包
+
+　　方式一：克隆源码后打包
+
+```bash
+
+    git clone https://github.com/apache/incubator-dubbo-ops.git
+    
+    cd incubator-dubbo-ops
+
+    # 切换到master分支
+    git branch --track master origin/master
+    git checkout master
+    
+    # 打包
+    mvn clean -Dmaven.test.skip package
+    
+    mkdir -p /opt/env/dubbo/monitor
+    
+    mv dubbo-monitor-simple/target/dubbo-monitor-simple-2.0.0-assembly.tar.gz /opt/env/dubbo/monitor/dubbo-monitor-assembly.tar.gz
+    
+    cd /opt/env/dubbo/monitor/
+    
+    tar -xzf dubbo-monitor-assembly.tar.gz
+    
+    mv dubbo-monitor-simple-2.0.0/* .
+    
+    rm -rf dubbo-monitor-simple-2.0.0/*
+    
+```
+
+### 启动
+
+　　启动`Dubbo Monitor`之前需要修改一下配置文件，通过`vim conf/dubbo.properties`修改：
+
+```properties
+
+    # 配置Dubbo注册中心地址，Dubbo Monitor 需要将自身作为提供方注册到注册中心中
+    dubbo.registry.address=zookeeper://tx.me:2181
+    # 配置 Dubbo Monitor 作为提供方时的服务交互地址
+    dubbo.protocol.port=7070
+    # 配置DubboMonitor Web 服务监听地址
+    dubbo.jetty.port=7656
+
+```
+
+　　修改完毕后执行`./assembly.bin/start.sh`脚本启动`Dubbo Monitor`，访问`${host}:${dubbo.jetty.port}`进入监控页面。
+
+![05 DubboMonitor监控页面.jpg](https://i.loli.net/2018/09/16/5b9e4266e5e39.jpg)
+
+　　`DubboMonitor`提供的服务管理脚本：
+
+- `conf/start.sh`启动`DubboMonitor`
+- `conf/stop.sh`停止`DubboMonitor`
+- `conf/restart.sh`重启`DubboMonitor`
+
+### 应用服务开启监控
+
+　　单单启动`Dubbo Monitor`并没有任何作用，必须在应用服务中开启（配置）监控服务后，才能在`Dubbo Monitor`中看到监控内容。
+
+　　在提供方或者消费方中通过修改`Dubbo`来开启监控。配置如下：
+
+```yaml
+
+    dubbo:
+      monitor:
+        # 从注册中心发现监控中心地址
+        protocol: registry
+        # 直连监控中心服务器地址
+        # address: tx.me:${dubboMonitorProtocolPort}
+
+```
+
+
+~~放弃使用 Dubbo Monitor，各种奇奇怪怪的问题，不能该dubbo.protocol.port，图片死活加载不出来，命名图片存在~~

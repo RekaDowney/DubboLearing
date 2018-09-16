@@ -11,7 +11,11 @@ dubbo:
   registry:
     address: zookeeper://tx.me:2181
     client: curator
-#    register: false
+  monitor:
+    # 从注册中心发现监控中心地址
+    protocol: registry
+    # 直连监控中心服务器地址
+    # address: tx.me:2181
 
 ## 版本配置
 user:
