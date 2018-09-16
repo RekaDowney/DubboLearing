@@ -624,7 +624,10 @@ _解决方案_
 　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)
 
 
-## 安装并启动 Dubbo 监控中心
+
+~~## 安装并启动 Dubbo 监控中心~~
+
+~~放弃使用 Dubbo Monitor，各种奇奇怪怪的问题，不能该dubbo.protocol.port，图片死活加载不出来，命名图片存在~~
 
 ### 打包
 
@@ -699,5 +702,3 @@ _解决方案_
 
 ```
 
-
-~~放弃使用 Dubbo Monitor，各种奇奇怪怪的问题，不能该dubbo.protocol.port，图片死活加载不出来，命名图片存在~~
