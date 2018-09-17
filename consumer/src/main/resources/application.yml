@@ -11,7 +11,11 @@ dubbo:
   registry:
     address: zookeeper://tx.me:2181
     client: curator
+  # 关闭消费方的启动时检查（启动时检查不到依赖的provider就抛出 IllegalStateException 异常）
+  consumer:
+    check: false
 #    register: false
+
 
 ## 版本配置
 user:

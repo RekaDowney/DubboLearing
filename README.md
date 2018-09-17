@@ -624,3 +624,28 @@ _解决方案_
 　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)
 
 
+## 配置项介绍
+
+### dubbo.consumer.check
+
+　　`dubbo.consumer.check`配置项用来指定启动消费方的时候是否检测所依赖的提供方是否存在，默认为`true`，此时启动时找不到对应提供方依赖将会抛出如下异常：
+
+```text
+
+    Caused by: java.lang.IllegalStateException: Failed to check the status of the service me.junbin.dubbo.service.UserService. No provider available for the service me.junbin.dubbo.service.UserService:1.0.0 from the url zookeeper://bd.me:2181/com.alibaba.dubbo.registry.RegistryService?application=Consumer&dubbo=2.6.2&interface=me.junbin.dubbo.service.UserService&methods=findById,save,update,findAll,delete&pid=25793&register.ip=${registryIp}&revision=1.0&side=consumer&timestamp=1537196923296&version=1.0.0 to the consumer ${consumerIp} use dubbo version 2.6.2
+
+```
+
+　　此时使用配置`dubbo.consumer.check=false`，那么启动时将不会抛出异常，但在消费方调用提供方时，如果此时提供方还不可用，那么将会抛出如下异常：
+
+```text
+
+    com.alibaba.dubbo.rpc.RpcException: No provider available from registry bd.me:2181 for service me.junbin.dubbo.service.UserService:1.0.0 on consumer ${consumerIp} use dubbo version 2.6.2, please check status of providers(disabled, not registered or in blacklist).
+
+```
+
+　　此时会提示我们检查是否服务方尚未启动、尚未注册亦或是服务方被列入黑名单。
+
+### 
+
+
