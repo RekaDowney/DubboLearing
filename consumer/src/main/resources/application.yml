@@ -14,8 +14,8 @@ dubbo:
   # 关闭消费方的启动时检查（启动时检查不到依赖的provider就抛出 IllegalStateException 异常）
   consumer:
     check: false
-#    register: false
-
+    # 指定超时
+    timeout: 3000
 
 ## 版本配置
 user:

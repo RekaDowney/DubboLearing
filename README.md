@@ -646,6 +646,41 @@ _解决方案_
 
 　　此时会提示我们检查是否服务方尚未启动、尚未注册亦或是服务方被列入黑名单。
 
-### 
+### timeout 超时配置
 
+　　超时配置的单位为毫秒，默认为`1000`
+　　`com.alibaba.dubbo.config.ProviderConfig`是所有服务提供方的默认配置，所有的`com.alibaba.dubbo.config.ServiceConfig`如果没有特别配置，那么将会根据`ProviderConfig`生成默认配置。
+　　`com.alibaba.dubbo.config.ConsumerConfig`是所有服务消费方的默认配置，所有的`com.alibaba.dubbo.config.ReferenceConfig`如果没有特别配置，那么将会根据`ConsumerCoNfig`生成默认配置。
+
+　　`Dubbo`支持三个层级（默认配置 + 类级别 + 方法级别）的超时配置，与`SpringBoot`集成后，如果仅仅使用快捷配置（`yml`或者`properties`配置文件、注解），那么只支持两个层级（默认配置 + 类级别），即方法级别的超时配置无法通过快捷配置完成。但可以通过`Java Config`配置方式来实现。
+
+　　`dubbo.consumer.timeout`配置项指定消费方的超时默认配置；
+　　`dubbo.provider.timeout`配置项指定提供方的超时默认配置；
+　　`@com.alibaba.dubbo.config.annotation.Reference#timeout`注解指定消费方某个类的超时配置；
+　　`@com.alibaba.dubbo.config.annotation.Service#timeout`注解指定提供方某个类的超时配置；
+
+
+
+
+#### 配置项优先级
+
+　　对于服务方和消费方的所有配置，遵循如下优先级顺序：
+
+```text
+
+    层级相同，消费方优先
+    层次不同，越具体越优先，即方法级别 > 类级别 > 默认配置
+
+    故按优先级递减顺序有：
+    
+    消费方方法级别配置
+    服务方方法级别配置
+    消费方类级别配置
+    服务方类级别配置
+    消费方默认配置
+    服务方默认配置    
+    
+```
+　　
+#### dubbo.con
 

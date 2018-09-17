@@ -10,6 +10,6 @@ import java.io.Serializable;
  */
 public interface TimeoutService {
 
-    Serializable timeout(int seconds);
+    Serializable timeout(int milliseconds);
 
 }

@@ -22,9 +22,9 @@ public class TimeoutController {
     @Reference
     private TimeoutService timeoutService;
 
-    @GetMapping("/{seconds:\\d+}")
-    public Serializable timeout(@PathVariable int seconds) {
-        return timeoutService.timeout(seconds);
+    @GetMapping("/{milliseconds:\\d+}")
+    public Serializable timeout(@PathVariable int milliseconds) {
+        return timeoutService.timeout(milliseconds);
     }
 
 }

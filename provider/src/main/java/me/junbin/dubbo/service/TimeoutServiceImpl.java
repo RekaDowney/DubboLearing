@@ -17,13 +17,13 @@ import java.util.concurrent.TimeUnit;
 public class TimeoutServiceImpl implements TimeoutService {
 
     @Override
-    public Serializable timeout(int seconds) {
+    public Serializable timeout(int milliseconds) {
         try {
-            TimeUnit.SECONDS.sleep(seconds);
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
         } catch (InterruptedException e) {
             return "线程被请求中断";
         }
-        return String.format("休眠%d秒完毕", seconds);
+        return String.format("休眠%d秒完毕", milliseconds);
     }
 
 }
