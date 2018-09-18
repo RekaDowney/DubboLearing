@@ -658,9 +658,30 @@ _解决方案_
 　　`dubbo.provider.timeout`配置项指定提供方的超时默认配置；
 　　`@com.alibaba.dubbo.config.annotation.Reference#timeout`注解指定消费方某个类的超时配置；
 　　`@com.alibaba.dubbo.config.annotation.Service#timeout`注解指定提供方某个类的超时配置；
+　　方法级别的超时配置可以通过`JavaConfig`配置，以提供方为例，其配置如下：
 
+```java
 
+    @Bean
+    public ServiceConfig<UserService> serviceConfig() {
+        // 生成 ServiceConfig，泛型指定服务接口
+        ServiceConfig<UserService> config = new ServiceConfig<>();
+        // 指定服务接口
+        config.setInterface(UserService.class);
+        // 生成对应的服务实现
+        UserServiceImpl userService = new UserServiceImpl();
+        config.setRef(userService);
 
+        // 方法级别配置
+        MethodConfig methodConfig = new MethodConfig();
+        // 方法名
+        methodConfig.setName("findById");
+        // 写入到 Service 中
+        config.setMethods(Collections.singletonList(methodConfig));
+        return config;
+    }
+
+```
 
 #### 配置项优先级
 
@@ -682,5 +703,12 @@ _解决方案_
     
 ```
 　　
-#### dubbo.con
+#### dubbo.consumer.timeout
 
+　　指定消费方的超时等待时间（单位：毫秒），此时会忽略提供方`dubbo.provider.timeout`的超时配置。当超时时，将会抛出如下异常（消费方有必要捕获该异常）：
+
+```text
+
+    com.alibaba.dubbo.remoting.TimeoutException: Waiting server-side response timeout by scan timer. start time: 2018-09-18 00:11:40.096, end time: 2018-09-18 00:11:41.108, client elapsed: 1 ms, server elapsed: 1010 ms, timeout: 1000 ms, request: Request [id=2, version=2.0.0, twoway=true, event=false, broken=false, data=RpcInvocation [methodName=timeout, parameterTypes=[int], arguments=[2], attachments={path=me.junbin.dubbo.service.TimeoutService, interface=me.junbin.dubbo.service.TimeoutService, version=0.0.0}]], channel: /10.135.24.8:42392 -> /${providerIp}:7658
+
+```

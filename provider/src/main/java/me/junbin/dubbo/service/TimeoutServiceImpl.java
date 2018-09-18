@@ -23,7 +23,7 @@ public class TimeoutServiceImpl implements TimeoutService {
         } catch (InterruptedException e) {
             return "线程被请求中断";
         }
-        return String.format("休眠%d秒完毕", milliseconds);
+        return String.format("休眠%d毫秒完毕", milliseconds);
     }
 
 }

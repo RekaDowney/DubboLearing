@@ -1,6 +1,7 @@
 package me.junbin.dubbo.web;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.remoting.TimeoutException;
 import me.junbin.dubbo.service.TimeoutService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,14 @@ public class TimeoutController {
 
     @GetMapping("/{milliseconds:\\d+}")
     public Serializable timeout(@PathVariable int milliseconds) {
-        return timeoutService.timeout(milliseconds);
+        try {
+            return timeoutService.timeout(milliseconds);
+        } catch (Exception e) {
+            if (e instanceof TimeoutException) {
+                return String.format("%d毫秒超时", milliseconds);
+            }
+            return "发生异常" + e.getMessage();
+        }
     }
 
 }
