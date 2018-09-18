@@ -8,6 +8,7 @@
 ### readonly loggingPath=“”     # 指定服务的日志记录文件
 ### readonly configLocation=“”  # 指定服务的额外配置文件，可以用来覆盖某些配置
 ### readonly scriptName=“”      # 指定当前脚本名称，通常直接使用"$(pwd)/$(basename $0)"表示
+### readonly remoteDebug=""     # 指定远程调试的agentlib配置，可选
 
 ## 然后执行 source /path/to/base_service.sh 执行当前脚本
 
@@ -34,9 +35,9 @@ function __start() {
     cp ${newJarPath} ${jarAbsolutePath}
     if [ -n "${configLocation}" ]; then
         ## 通过 spring.config.location 指定配置文件加载路径
-        nohup java -jar ${jarAbsolutePath} --spring.config.additional-location=file:${configLocation} > ${loggingPath} 2>&1 &
+        nohup java ${remoteDebug} -jar ${jarAbsolutePath} --spring.config.additional-location=file:${configLocation} > ${loggingPath} 2>&1 &
     else
-        nohup java -jar ${jarAbsolutePath} > ${loggingPath} 2>&1 &
+        nohup java ${remoteDebug} -jar ${jarAbsolutePath} > ${loggingPath} 2>&1 &
     fi
     sleep 1s
     if exist; then

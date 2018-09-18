@@ -540,6 +540,7 @@ _解决方案_
     ### readonly loggingPath=“”     # 指定服务的日志记录文件
     ### readonly configLocation=“”  # 指定服务的额外配置文件，可以用来覆盖某些配置
     ### readonly scriptName=“”      # 指定当前脚本名称，通常直接使用"$(pwd)/$(basename $0)"表示
+    ### readonly remoteDebug=""     # 指定远程调试的agentlib配置，可选
     
     ## 然后执行 source /path/to/base_service.sh 执行当前脚本
     
@@ -576,12 +577,14 @@ _解决方案_
     ### readonly loggingPath=“”     # 指定服务的日志记录文件
     ### readonly configLocation=“”  # 指定服务的额外配置文件，可以用来覆盖某些配置
     ### readonly scriptName=“”   # 指定当前脚本名称，通常直接使用"$(pwd)/$(basename $0)"表示
+    ### readonly remoteDebug=""     # 指定远程调试的agentlib配置，可选
     
     readonly jarAbsolutePath='/opt/app/dubbo/provider.jar'
     readonly newJarPath='/opt/code/DubboLearning/provider/target/provider-1.0.jar'
     readonly loggingPath="/opt/app/dubbo/provider.log"
     readonly configLocation='/opt/app/dubbo/provider.yml'
     readonly scriptName="$(pwd)/$(basename $0)"
+    readonly remoteDebug=""
     
     source ./base_service.sh
     
@@ -592,7 +595,7 @@ _解决方案_
 
 　　授予脚本可执行权限后，添加内容为`alias dubboProvider='/opt/app/scripts/dubboProvider.sh'`的`alias`，后面可以通过`dubboProvider <start|stop|run|restart>`命令启动、停止、确保运行、重启服务提供方。
 
-　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)
+　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)，`remoteDeubg`配置项指定远程调试的代理配置。
 
 　　[服务消费方脚本](https://github.com/RekaDowney/DubboLearning/blob/master/deployScripts/v2/dubboConsumer.sh)
 
@@ -605,12 +608,14 @@ _解决方案_
     ### readonly loggingPath=“”     # 指定服务的日志记录文件
     ### readonly configLocation=“”  # 指定服务的额外配置文件，可以用来覆盖某些配置
     ### readonly scriptName=“”   # 指定当前脚本名称，通常直接使用"$(pwd)/$(basename $0)"表示
+    ### readonly remoteDebug=""     # 指定远程调试的agentlib配置，可选
     
     readonly jarAbsolutePath='/opt/app/dubbo/consumer.jar'
     readonly newJarPath='/opt/code/DubboLearning/consumer/target/consumer-1.0.jar'
     readonly loggingPath="/opt/app/dubbo/consumer.log"
     readonly configLocation='/opt/app/dubbo/consumer.yml'
     readonly scriptName="$(pwd)/$(basename $0)"
+    readonly remoteDebug=""
     
     source ./base_service.sh
     
@@ -621,7 +626,7 @@ _解决方案_
 
 　　授予脚本可执行权限后，添加内容为`alias dubboConsumer='/path/to/dubboConsumer.sh'`的`alias`，后面可以通过`dubboConsumer <start|stop|run|restart>`命令启动、停止、确保运行、重启服务消费方。
 
-　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)
+　　其中`configLocation`指定的配置文件中的配置将会覆盖`application.yml`中的配置。具体加载顺序可以参考[SpringBoot配置文件加载顺序与优先级](https://github.com/RekaDowney/SpringBootLearning#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7)，`remoteDeubg`配置项指定远程调试的代理配置。
 
 
 ## 配置项介绍

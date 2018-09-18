@@ -6,12 +6,14 @@
 ### readonly loggingPath=“”     # 指定服务的日志记录文件
 ### readonly configLocation=“”  # 指定服务的额外配置文件，可以用来覆盖某些配置
 ### readonly scriptName=“”   # 指定当前脚本名称，通常直接使用"$(pwd)/$(basename $0)"表示
+### readonly remoteDebug=""     # 指定远程调试的agentlib配置，可选
 
 readonly jarAbsolutePath='/opt/app/dubbo/provider.jar'
 readonly newJarPath='/opt/code/DubboLearning/provider/target/provider-1.0.jar'
 readonly loggingPath="/opt/app/dubbo/provider.log"
 readonly configLocation='/opt/app/dubbo/provider.yml'
 readonly scriptName="$(pwd)/$(basename $0)"
+readonly remoteDebug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5111"
 
 source ./base_service.sh
 
